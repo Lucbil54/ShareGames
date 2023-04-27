@@ -1,0 +1,17 @@
+{
+    "autoload": {
+        "psr-4": {
+            "shareGames\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Billegas Lucas",
+            "email": "lucas.bllgs@eduge.ch"
+        }
+    ],
+    "require": {
+        "pecee/simple-router": "5.3.0.3"
+    }
+    
+}
