@@ -15,7 +15,7 @@ require_once "../src/config.php";
 class ConnexionDB 
 {
     /**
-     * Connexion base de données 
+     * Connexion à la base de données 
      */
     public static function Db()
     {

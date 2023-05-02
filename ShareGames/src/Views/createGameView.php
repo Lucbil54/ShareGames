@@ -23,35 +23,35 @@
 
     <link rel="stylesheet" href="assets/css/form.css">
 
-	<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
-
-    <title>Inscription</title>
+    <title>Création d'une fiche de jeu</title>
 </head>
 
 <body>
     <?php include "inc/header.php"; ?>
     <form method="post" enctype="multipart/form-data">
 
-        <label for="name">Nom:</label>
-		<input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
+        <label for="title">Titre:</label>
+        <input type="text" id="title" name="title" placeholder="Entrez le titre" required>
 
-		<label for="password">Mot de passe:</label>
-		<input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
+        <label for="description">Description (optionnel) :</label>
+        <textarea name="description" rows="10" cols="40"></textarea>
+        <br>
+        <label for="">Sélectionner la plateforme:</label>
+        <select name="platform" id="platform">
+            <option value="PS">PS</option>
+            <option value="XBOX">XBOX</option>
+            <option value="PC">PC</option>
+            <option value="Mobile">Mobile</option>
+            <option value="autre" selected>Autre</option>
+        </select>
+        <br>
+        <label for="vignette">Sélectionnez une vignette :</label>
+        <input type="file" name="file" accept="image/*">
 
-        <label for="password">Mot de passe:</label>
-		<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" minlength="8" required>
-
-        <label for="avatar">Sélectionnez un avatar (optionnel) :</label>
-		<input type="file" name="avatar" accept="image/*">
-
-		<input type="submit" value="S'inscrire" name="register">
-        <p class="small mb-5 pb-lg-2"><?php echo $message; ?></p>
-
-        <div>
-            <p class="mb-0">Vous avez déjà un compte ? <a href="/connexion">Connexion</a>
-            </p>
-        </div>
+        <input type="submit" value="Création de la fiche" name="btnCreate">
+        <p><?php echo $message; ?><p>
     </form>
     <?php include "inc/footer.php"; ?>
 </body>
