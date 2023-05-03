@@ -33,25 +33,12 @@
 </head>
 
 <body>
-	<div class="site-mobile-menu site-navbar-target">
-		<div class="site-mobile-menu-header">
-			<div class="site-mobile-menu-close">
-				<span class="icofont-close js-menu-toggle"></span>
-			</div>
-		</div>
-		<div class="site-mobile-menu-body"></div>
-	</div>
-
 	<?php include "inc/header.php" ?>
-
-
 
 	<!--<form action="#">
 		<input type="text" class="form-control" placeholder="Search...">
 		<span class="bi-search"></span>
 	</form>-->
-
-
 
 	<section class="section">
 		<div class="container">
@@ -88,9 +75,6 @@
 			</div> -->
 		</div>
 	</section>
-
-
-
 
 	<div class="section bg-light">
 		<div class="container">

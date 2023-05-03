@@ -41,7 +41,7 @@ class ConnexionDB
      */
     public static function DbRun($sql, $param = null)
     {
-        $statement = ConnexionDB::Db()->prepare($sql);
+        $statement = self::Db()->prepare($sql);
 
         $result = $statement->execute($param);
 

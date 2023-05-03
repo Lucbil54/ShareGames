@@ -27,7 +27,9 @@ class GamesModel
         $sql = "INSERT INTO jeux (date, description, titre, vignette, plateforme) VALUES (?,?,?,?,?)";
 
         $param = [$date, $description, $title, $fileName, $platform];
-        return ConnexionDB::DbRun($sql, $param);
+        ConnexionDB::DbRun($sql, $param);
+
+        return ConnexionDB::Db()->lastInsertId();
     }
 
     /**
@@ -39,10 +41,9 @@ class GamesModel
      */
     public static function NameFileRandom($fileName)
     {
-        $newName = explode('.', $fileName)[0];
         $extension = explode('.', $fileName)[1];
 
-        $newName = uniqid($newName);
+        $newName = uniqid();
 
         $newName .= "." . $extension;
         return $newName;
@@ -51,11 +52,51 @@ class GamesModel
     /**
      * Récupérer les 5 fiches de jeu les plus récentes
      *
-     * @return object La fiche de jeu 
+     * @return object Les fiches de jeux 
      */
     public static function GetGameMoreRecently()
     {
-        $sql = "SELECT * FROM jeux ORDER BY date LIMIT 5";
+        $sql = "SELECT * FROM jeux ORDER BY date DESC, id DESC LIMIT 5";
+
+        $param = [];
+        return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Récupérer une fiche de jeu avec l'id
+     *
+     * @param int $idGame L'id de la fiche
+     * 
+     * @return object La fiche de jeu 
+     */
+    public static function GetGameById($idGame)
+    {
+        $sql = "SELECT * FROM jeux WHERE id = ?";
+
+        $param = [$idGame];
+        return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Supprimer un jeu
+     *
+     * @param int $idGame L'id de la fiche
+     * 
+     */
+    public static function DeleteGame($idGame)
+    {
+        $sql = "DELETE FROM jeux WHERE id = ?";
+
+        $param = [$idGame];
+        return ConnexionDB::DbRun($sql, $param);
+    }
+
+     /**
+     * Récuperer tous les jeux
+     */
+    public static function GetAllGames()
+    {
+        $sql = "SELECT * FROM jeux";
 
         $param = [];
         return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);

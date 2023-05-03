@@ -9,6 +9,7 @@ use ShareGames\Controllers\LogoutController;
 use ShareGames\Controllers\ManagementGamesController;
 use ShareGames\Controllers\CreateGameController;
 use ShareGames\Controllers\DetailsGameController;
+use ShareGames\Controllers\DeleteController;
 
 
 Router::form('/', [HomeController::class, 'Home']);
@@ -18,3 +19,5 @@ Router::get('/deconnexion', [LogoutController::class, 'Logout']);
 Router::form('/gestionJeux', [ManagementGamesController::class, 'ManagementGames']);
 Router::form('/creationJeu', [CreateGameController::class, 'CreateGame']);
 Router::form('/detailsJeu', [DetailsGameController::class, 'DetailsGame']);
+Router::get('/supprimerAvis', [DeleteController::class, 'DeleteOpinion']);
+Router::get('/supprimerJeu', [DeleteController::class, 'DeleteGame']);

@@ -34,9 +34,9 @@
       <div class="row same-height justify-content-center">
         <div class="col-md-6">
           <div class="post-entry text-center">
-            <h1 class="mb-4">Titre</h1>
+            <h1 class="mb-4"><?= $game->titre ?></h1>
             <div class="post-meta align-items-center text-center">
-              <span>Date</span>
+              <span><?= date("d-m-Y", strtotime($game->date)); ?></span>
             </div>
           </div>
         </div>
@@ -55,84 +55,55 @@
 
             <div class="row my-4">
               <div class="col-md-12 mb-4">
-                <img src="assets/images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded">
+                <?php
+                echo "<img src='assets/images/" . $game->vignette . "' alt='image' class='img-fluid rounded'>";
+                ?> <p style="float:left;"><?= $game->description ?>sadsadsadsadsadsadsadsd</p>
               </div>
             </div>
-            <p>Description</p>
+            <p>Plateforme : <?=$game->plateforme?></p>
           </div>
 
           <div class="pt-5 comment-wrap">
-            <h3 class="mb-5 heading">6 Comments</h3>
-            <ul class="comment-list">
-              <li class="comment">
-                <div class="vcard">
-                  <img src="assets/images/person_1.jpg" alt="Image placeholder">
-                </div>
-                <div class="comment-body">
-                  <h3>Nom user</h3>
-                  <div class="meta">Date</div>
-                  <p>Titre</p>
-                  <p>Description</p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
-                </div>
-              </li>
-
-              <li class="comment">
-                <div class="vcard">
-                  <img src="images/person_2.jpg" alt="Image placeholder">
-                </div>
-                <div class="comment-body">
-                  <h3>Jean Doe</h3>
-                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
-                </div>
-              </li>
-
-              <li class="comment">
-                <div class="vcard">
-                  <img src="images/person_1.jpg" alt="Image placeholder">
-                </div>
-                <div class="comment-body">
-                  <h3>Jean Doe</h3>
-                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                  <p><a href="#" class="reply rounded">Reply</a></p>
-                </div>
-              </li>
-            </ul>
-            <!-- END comment-list -->
+            <h3 class="mb-5 heading"><?=$nbOpinions?> Commentaires</h3>
+            
+            <?php echo $displayOpinions; ?>
 
             <div class="comment-form-wrap pt-5">
               <h3 class="mb-5">Commenter le jeu</h3>
-              <form class="p-5 bg-light">
+              <form method="post" class="p-5 bg-light">
                 <div class="form-group">
-                  <label for="name">Titre</label>
-                  <input type="text" class="form-control" id="title" name="title">
+                  <label for="title">Titre</label>
+                  <input type="text" class="form-control" id="title" name="title" required>
                 </div>
                 <div class="form-group">
                   <label for="mark">Note</label>
-                  <input type="number" min="0" max="10" class="form-control" id="mark" name="mark">
+                  <input type="number" min="0" max="10" class="form-control" id="mark" name="mark" required>
                 </div>
 
                 <div class="form-group">
-                  <label for="message">Description</label>
+                  <label for="description">Description</label>
                   <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <input type="submit" value="Poster un commentaire" class="btn btn-primary">
+                  <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class="btn btn-primary">
                 </div>
               </form>
             </div>
           </div>
         </div>
+        <div class="col-md-12 col-lg-4 sidebar">
+          
+
+          <div class="sidebar-box">
+            <h3 class="heading">Type du jeu</h3>
+            <ul class="tags">
+              <?php echo $listTypes; ?>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-
-
-
-
-
+  </section>
 
     <?php include "inc/footer.php"; ?>
 </body>

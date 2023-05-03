@@ -20,15 +20,63 @@
     <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    
-	<link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/tiny-slider.css">
+	<link rel="stylesheet" href="assets/css/aos.css">
+	<link rel="stylesheet" href="assets/css/glightbox.min.css">
+	<link rel="stylesheet" href="assets/css/style.css"> -->
 
     <title>Gestion</title>
 </head>
 
 <body>
     <?php include "inc/header.php"; ?>
-        <a href="/creationJeu" class="btn btn-primary">Créer une fiche de jeu</a>
+
+
+
+    <div class="hero overlay inner-page bg-primary py-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center pt-5">
+                <div class="col-lg-6">
+                    <h1 class="heading text-white mb-3" data-aos="fade-up">Gestion des jeux</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section search-result-wrap">
+        <div class="container">
+            <div class="row posts-entry">
+                <div class="col-lg-8">
+                    
+                    <?php echo $allGames; ?>
+
+                    <div class="row text-start pt-5 border-top">
+                        <div class="col-md-12">
+                            <div class="custom-pagination">
+                                <span>1</span>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <span>...</span>
+                                <a href="#">15</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4 sidebar">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <a href="/creationJeu" class="btn btn-primary">Créer une fiche de jeu</a>
     <?php include "inc/footer.php"; ?>
 </body>
 

@@ -12,6 +12,8 @@ use PDO;
 
 class UsersModel
 {
+    const USER_AVATAR_DEFAULT = "User_Avatar_Default.png";
+
     /**
      * Création d'un utilisateur
      *
@@ -72,6 +74,19 @@ class UsersModel
         $sql = "SELECT * FROM utilisateurs WHERE login = ?";
 
         $param = [$name];
+        return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Récupère l'utilisateur depuis l'identitfiant
+     *
+     * @param string $idUser l'id de l'utilisateur
+     * @return object L'utilisateur
+     */
+    public static function GetUserById($idUser){
+        $sql = "SELECT * FROM utilisateurs WHERE id = ?";
+
+        $param = [$idUser];
         return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
     }
 

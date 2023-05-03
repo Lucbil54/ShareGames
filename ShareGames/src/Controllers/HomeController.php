@@ -16,8 +16,8 @@ class HomeController
 	public function Home()
 	{
 
-		$cardsTopGames = HomeController::CardTopGames();
-		$cardsMoreRecently = HomeController::CardGamesMoreRecently();
+		$cardsTopGames = self::CardTopGames();
+		$cardsMoreRecently = self::CardGamesMoreRecently();
 		require_once "../src/Views/homeView.php";
 	}
 
@@ -55,13 +55,13 @@ class HomeController
 
 			$nbCard++;
 			if ($nbCard == 1) {
-				$output .= HomeController::FirstCard($game);
+				$output .= self::FirstCard($game);
 				$output .= "<div class='col-md-7'>";
 			} else if ($nbCard % 2 == 0) {
 				$output .= "<div class='two-col d-block d-md-flex justify-content-between'>";
 			}
 
-			$output .= HomeController::CardNormaly($game);
+			$output .= self::CardNormaly($game);
 
 			if ($nbCard == 3 || $nbCard == 5) {
 				$output .= "</div><br>";
@@ -74,11 +74,13 @@ class HomeController
 
 	public function FirstCard($game)
 	{
+		// Change le format de la date
+		$dateFormat = date("d-m-Y", strtotime($game->date));  
 		return "<div class='col-md-5 order-md-2'>
-					<a href='detailsJeu' class='hentry img-1 h-100 gradient'>
+					<a href='detailsJeu?idGame=". $game->id ."' class='hentry img-1 h-100 gradient'>
 						<div class='featured-img' style='background-image: url(assets/images/" . $game->vignette . ");'></div>
 						<div class='text'>
-							<span>" . $game->date . "</span>
+							<span>" . $dateFormat . "</span>
 							<h2>" . $game->titre . "</h2>
 						</div>
 					</a>
@@ -87,10 +89,13 @@ class HomeController
 
 	public function CardNormaly($game)
 	{
-		return "<a href='detailsJeu' class='hentry v-height img-2 ms-auto float-end gradient'>
+		// Change le format de la date
+		$dateFormat = date("d-m-Y", strtotime($game->date));  
+
+		return "<a href='detailsJeu?idGame=". $game->id ."' class='hentry v-height img-2 ms-auto float-end gradient'>
 		<div class='featured-img' style='background-image: url(assets/images/". $game->vignette .");'></div>
 		<div class='text text-sm'>
-			<span>". $game->date ."</span>
+			<span>". $dateFormat ."</span>
 			<h2>". $game->titre ."</h2>
 		</div>
 	</a>";
