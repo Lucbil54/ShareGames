@@ -15,15 +15,10 @@
 						<a href="/" class="logo m-0 float-start">ShareGames</a>
 					</div>
 					<div class="col-8 text-center">
-						<form action="#" class="search-form d-inline-block d-lg-none">
-							<input type="text" class="form-control" placeholder="Search...">
-							<span class="bi-search"></span>
-						</form>
-
 						<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
 
 							<li class="active"><a href="/">Home</a></li>
-							<li><a href="category.html">Jeux</a></li>
+							<li><a href="/jeux">Jeux</a></li>
 
 							<?php if (isset($_SESSION['userIsConnected']) && $_SESSION['userIsConnected']) {
 								if($_SESSION['admin']){

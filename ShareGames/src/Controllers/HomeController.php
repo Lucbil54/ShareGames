@@ -13,35 +13,25 @@ use ShareGames\Models\GamesModel;
 
 class HomeController
 {
+	const LIMIT_GAMES_RECENTLY = 5;
 	public function Home()
 	{
-
-		$cardsTopGames = self::CardTopGames();
+		$IdTopGames = GamesModel::GetTopGames();
+		$cardsTopGames = self::CardTopGames($IdTopGames);
 		$cardsMoreRecently = self::CardGamesMoreRecently();
+
 		require_once "../src/Views/homeView.php";
 	}
 
-	public function CardTopGames()
+	public function CardTopGames($IdTopGames)
 	{
-		$output = "";
+		$output = "<div class='row align-items-stretch retro-layout-alt'><div class='two-col d-block d-md-flex justify-content-between'>";
+		for ($i = 0; $i < count($IdTopGames); $i++) {
+			$game = GamesModel::GetGameById($IdTopGames[$i]);
 
-		$output = "<div class='row'>
-				<div class='col-lg-4 mb-4'>
-					<div class='post-entry-alt'>
-						<a href='detailsJeu' class='img-link'><img src='assets/images/img_7_horizontal.jpg' alt='Image' class='img-fluid'></a>
-						<div class='excerpt'>
-							<h2><a href='single.html'>Titre</a></h2>
-							<div class='post-meta align-items-center text-left clearfix'>
-								<span>Date</span>
-							</div>
-							<p>Description</p>
-							<p><a href='single.html' class='btn btn-sm btn-outline-primary'>Read More</a></p>
-						</div>
-					</div>
-				</div>
-			</div>";
-
-
+			$output .= self::CardNormaly($game);
+		}
+		$output .= "</div></div>";
 		return $output;
 	}
 
@@ -50,34 +40,37 @@ class HomeController
 		$output = "<div class='row align-items-stretch retro-layout-alt'>";
 		$nbCard = 0;
 		$games = GamesModel::GetGameMoreRecently();
+		while ($nbCard < self::LIMIT_GAMES_RECENTLY) {
 
-		foreach ($games as $game) {
 
-			$nbCard++;
-			if ($nbCard == 1) {
-				$output .= self::FirstCard($game);
-				$output .= "<div class='col-md-7'>";
-			} else if ($nbCard % 2 == 0) {
-				$output .= "<div class='two-col d-block d-md-flex justify-content-between'>";
+			foreach ($games as $game) {
+
+				$nbCard++;
+				if ($nbCard == 1) {
+					$output .= self::FirstCard($game);
+					$output .= "<div class='col-md-7'>";
+				} else if ($nbCard % 2 == 0) {
+					$output .= "<div class='two-col d-block d-md-flex justify-content-between'>";
+				}
+
+				$output .= self::CardNormaly($game);
+
+				if ($nbCard == 3 || $nbCard == 5) {
+					$output .= "</div>";
+				}
 			}
 
-			$output .= self::CardNormaly($game);
-
-			if ($nbCard == 3 || $nbCard == 5) {
-				$output .= "</div><br>";
-			}
+			$output .= "</div></div>";
+			return $output;
 		}
-	
-		$output .= "</div></div>";
-		return $output;
 	}
 
 	public function FirstCard($game)
 	{
 		// Change le format de la date
-		$dateFormat = date("d-m-Y", strtotime($game->date));  
+		$dateFormat = date("d-m-Y", strtotime($game->date));
 		return "<div class='col-md-5 order-md-2'>
-					<a href='detailsJeu?idGame=". $game->id ."' class='hentry img-1 h-100 gradient'>
+					<a href='detailsJeu?idGame=" . $game->id . "' class='hentry img-1 h-100 gradient'>
 						<div class='featured-img' style='background-image: url(assets/images/" . $game->vignette . ");'></div>
 						<div class='text'>
 							<span>" . $dateFormat . "</span>
@@ -90,13 +83,13 @@ class HomeController
 	public function CardNormaly($game)
 	{
 		// Change le format de la date
-		$dateFormat = date("d-m-Y", strtotime($game->date));  
+		$dateFormat = date("d-m-Y", strtotime($game->date));
 
-		return "<a href='detailsJeu?idGame=". $game->id ."' class='hentry v-height img-2 ms-auto float-end gradient'>
-		<div class='featured-img' style='background-image: url(assets/images/". $game->vignette .");'></div>
+		return "<a href='detailsJeu?idGame=" . $game->id . "' class='hentry v-height img-2 ms-auto float-end gradient'>
+		<div class='featured-img' style='background-image: url(assets/images/" . $game->vignette . ");'></div>
 		<div class='text text-sm'>
-			<span>". $dateFormat ."</span>
-			<h2>". $game->titre ."</h2>
+			<span>" . $dateFormat . "</span>
+			<h2>" . $game->titre . "</h2>
 		</div>
 	</a>";
 	}

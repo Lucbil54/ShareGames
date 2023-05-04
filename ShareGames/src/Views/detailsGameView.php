@@ -29,18 +29,10 @@
 <body>
   <?php include "inc/header.php"; ?>
 
-  <div class="site-cover site-cover-sm same-height overlay single-page" style="background-image: url('assets/images/hero_5.jpg');">
-    <div class="container">
-      <div class="row same-height justify-content-center">
-        <div class="col-md-6">
-          <div class="post-entry text-center">
-            <h1 class="mb-4"><?= $game->titre ?></h1>
-            <div class="post-meta align-items-center text-center">
-              <span><?= date("d-m-Y", strtotime($game->date)); ?></span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="post-entry text-center">
+    <h1 class="mb-4" style="color: black; margin-top: 1%;"><?= $game->titre ?></h1>
+    <div class="post-meta align-items-center text-center">
+      <span><?= date("d-m-Y", strtotime($game->date)); ?></span>
     </div>
   </div>
 
@@ -57,15 +49,15 @@
               <div class="col-md-12 mb-4">
                 <?php
                 echo "<img src='assets/images/" . $game->vignette . "' alt='image' class='img-fluid rounded'>";
-                ?> <p style="float:left;"><?= $game->description ?>sadsadsadsadsadsadsadsd</p>
+                ?> <p><?= $game->description ?></p>
               </div>
             </div>
-            <p>Plateforme : <?=$game->plateforme?></p>
+            <p>Plateforme : <?= $game->plateforme ?></p>
           </div>
 
           <div class="pt-5 comment-wrap">
-            <h3 class="mb-5 heading"><?=$nbOpinions?> Commentaires</h3>
-            
+            <h3 class="mb-5 heading"><?= $nbOpinions ?> Commentaires</h3>
+
             <?php echo $displayOpinions; ?>
 
             <div class="comment-form-wrap pt-5">
@@ -85,15 +77,13 @@
                   <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class="btn btn-primary">
+                  <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class="btn btn-primary" style="background-color: blue;">
                 </div>
               </form>
             </div>
           </div>
         </div>
         <div class="col-md-12 col-lg-4 sidebar">
-          
-
           <div class="sidebar-box">
             <h3 class="heading">Type du jeu</h3>
             <ul class="tags">
@@ -105,7 +95,7 @@
     </div>
   </section>
 
-    <?php include "inc/footer.php"; ?>
+  <?php include "inc/footer.php"; ?>
 </body>
 
 </html>

@@ -34,5 +34,4 @@ class DeleteController
         header("Location: gestionJeux");
         exit;
     }
-
 }

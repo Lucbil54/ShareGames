@@ -31,7 +31,7 @@ class DetailsGameController
             $displayOpinions = self::DisplayOpinions($opinions, $idGame);
         }
 
-        $listTypes = self::DisplayTypes($idGame); 
+        $listTypes = self::DisplayTypes($idGame);
 
         // Poster un avis
         if (filter_input(INPUT_POST, "btnSubmitOpinion")) {
@@ -41,38 +41,47 @@ class DetailsGameController
             $date = date("Y-m-d");
 
             OpinionsModel::CreateOpinion($title, $description, $mark, $_SESSION['idUser'], $idGame, $date);
+            header("Location: detailsJeu?idGame=" . $idGame);
+            exit;
         }
 
 
         require "../src/Views/detailsGameView.php";
     }
 
-    public function DisplayOpinions($opinions, $idGame){
+    public function DisplayOpinions($opinions, $idGame)
+    {
         $output = "<ul class='comment-list'>";
         foreach ($opinions as $opinion) {
             $user = UsersModel::GetUserById($opinion->utilisateurs_id);
 
             $output .= "<li class='comment'>
             <div class='vcard'>";
-            
+
             if ($user->avatar == null) {
-                $output .= "<img src='assets/images/". UsersModel::USER_AVATAR_DEFAULT ."' alt='Image placeholder'>";
-            }else{
+                $output .= "<img src='assets/images/" . UsersModel::USER_AVATAR_DEFAULT . "' alt='Image placeholder'>";
+            } else {
                 $output .= "<img src='assets/images/$user->avatar' alt='Image placeholder'>";
             }
 
-              $output .= "</div>
+            $output .= "</div>
             <div class='comment-body'>
               <h3>$user->login</h3>
               <div class='meta'>" . date("d-m-Y", strtotime($opinion->date)) . "</div>
               <br>
               <h5>$opinion->titre</h5>
               <p>$opinion->description</p>";
-              if ($_SESSION['idUser'] == $user->id || $_SESSION['admin']) {
-                
-                $output .= "<p><a href='supprimerAvis?idOpinion=". $opinion->id ."&idGame=". $idGame ."' class='reply rounded'>Supprimer</a></p>";
-              }
-              
+            if (isset($_SESSION['idUser']) && $_SESSION['idUser'] == $user->id || isset($_SESSION['admin']) && $_SESSION['admin']) {
+                $output .= "<p><a href='supprimerAvis?idOpinion=" . $opinion->id . "&idGame=" . $idGame . "' class='reply rounded'>Supprimer</a>";
+            }
+
+            if (isset($_SESSION['idUser']) && $_SESSION['idUser'] == $user->id) {
+                $output .= "<a href='modifierAvis?idOpinion=" . $opinion->id . "&idGame=" . $idGame . "' class='reply rounded'>Modifier</a></p>";
+            }
+            else{
+                $output .= "</p>";
+            }
+
             $output .= "</div>
           </li>";
         }
@@ -80,12 +89,13 @@ class DetailsGameController
         return $output;
     }
 
-    public function DisplayTypes($idGame){
+    public function DisplayTypes($idGame)
+    {
         $types = TypesModel::GetTypesOfGame($idGame);
         $output = "";
 
         foreach ($types as $key => $type) {
-            
+
             $output .= "<li><a href='#'>$type->type</a></li>";
         }
         return $output;

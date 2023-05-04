@@ -58,4 +58,11 @@ class TypesModel
 
         return $types;
     }
+
+    public static function DeleteTypeOfGame($idGame, $idType){
+        $sql = "DELETE FROM jeux_has_types WHERE jeux_id = ? AND types_id = ?";
+
+        $param = [$idGame, $idType];
+        return ConnexionDB::DbRun($sql, $param);
+    }
 }

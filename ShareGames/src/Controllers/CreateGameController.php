@@ -22,7 +22,7 @@ class CreateGameController
         } else {
 
             $message = "";
-            $checkbox = ControllersCreateGameController::GenerateCheckbox();
+            $checkbox = self::GenerateCheckbox();
 
             if (filter_input(INPUT_POST, 'btnCreate')) {
                 $files = $_FILES['file'];
@@ -59,9 +59,6 @@ class CreateGameController
                 }
             }
         }
-
-
-
         require "../src/Views/createGameView.php";
     }
 

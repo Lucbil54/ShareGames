@@ -57,4 +57,11 @@ class OpinionsModel
         return ConnexionDB::DbRun($sql, $param);
     }
 
+    public static function UpdateOpinion($idOpinion, $title, $description, $mark, $date){
+        $sql = "UPDATE avis SET date = ?, titre = ?, description = ?, note = ? WHERE id = ?";
+
+        $param = [$date, $title, $description, $mark, $idOpinion];
+        return ConnexionDB::DbRun($sql, $param);
+    }
+
 }

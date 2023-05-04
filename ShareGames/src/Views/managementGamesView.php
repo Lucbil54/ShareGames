@@ -22,10 +22,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="assets/css/tiny-slider.css">
-	<link rel="stylesheet" href="assets/css/aos.css">
-	<link rel="stylesheet" href="assets/css/glightbox.min.css">
-	<link rel="stylesheet" href="assets/css/style.css"> -->
 
     <title>Gestion</title>
 </head>
@@ -33,18 +29,7 @@
 <body>
     <?php include "inc/header.php"; ?>
 
-
-
-    <div class="hero overlay inner-page bg-primary py-5">
-        <div class="container">
-            <div class="row align-items-center justify-content-center text-center pt-5">
-                <div class="col-lg-6">
-                    <h1 class="heading text-white mb-3" data-aos="fade-up">Gestion des jeux</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <h1 class="heading text-black mb-3" style="text-align: center; margin-top: 2%;" data-aos="fade-up">Gestion des jeux</h1>
     <div class="section search-result-wrap">
         <div class="container">
             <div class="row posts-entry">
