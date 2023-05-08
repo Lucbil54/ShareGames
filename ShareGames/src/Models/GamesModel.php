@@ -13,6 +13,8 @@ use PDO;
 
 class GamesModel
 {
+    const LIMIT_GET_TOP_GAME = 10;
+
     /**
      * Création d'une fiche de jeu
      *
@@ -115,6 +117,7 @@ class GamesModel
         $param = [$idGame];
         return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
     }
+
     /**
      * Calcul de la moyenne des notes d'un jeu
      *
@@ -132,53 +135,126 @@ class GamesModel
 
         if ($nbMarks != 0) {
             $average /= $nbMarks;
-        }
-        else{
+        } else {
             $average = 0;
         }
 
         return $average;
     }
 
-    public static function GetTopGames(){
+    /**
+     * Récuperer les 10 meilleurs jeux
+     *
+     * @return array $topGames Le tableau des 10 meilleurs jeux
+     */
+    public static function GetTopGames()
+    {
         $games = self::GetAllGames();
-    
-        $tabTopAverage = array();
-        $tabIdTopGames = array();
-    
+
+        $averageMarks = array();
         foreach ($games as $game) {
             $marks = self::GetMarksOfGame($game->id);
-            if (count($marks) > 0) {
-                $average = self::AverageMarks($marks);    
 
-                if (count($tabTopAverage) < 10) {
-                    array_push($tabTopAverage, $average);
-                    array_push($tabIdTopGames, $game->id);
-                }
-                else{
-                    $minIndex = array_search(min($tabTopAverage), $tabTopAverage);
-                    if ($average > $tabTopAverage[$minIndex]) {
-                        array_splice($tabTopAverage, $minIndex, 1, $average);
-                        array_splice($tabIdTopGames, $minIndex, 1, $game->id);
-                    }
-                }
+            // Vérifie si le jeu est noté
+            if (count($marks) > 0) {
+                $average = self::AverageMarks($marks);
+                $averageMarks[$game->id] = $average;
             }
         }
-        return $tabIdTopGames;
+
+        // Ordonne le tableau dans l'ordre décroissant
+        arsort($averageMarks);
+
+        $topGames = array();
+        $i = 0;
+        foreach ($averageMarks as $gameId => $averageMark) {
+            // Attribue le jeu dans un tableau
+            $topGames[] = self::GetGameById($gameId);
+            $i++;
+            // Arrête d'ajouter au 10ème
+            if ($i == self::LIMIT_GET_TOP_GAME) {
+                break;
+            }
+        }
+
+        return $topGames;
     }
 
-
-    public static function UpdateGame($date, $title, $description, $fileName, $platform, $idGame){
+    /**
+     * Modifier le jeu
+     *
+     * @param date $date la date
+     * @param string $title le titre
+     * @param text $description la description
+     * @param string $fileName le nom de la vignette
+     * @param string $platform la plateforme
+     * @param int $idGame L'id du jeu
+     * @return void
+     */
+    public static function UpdateGame($date, $title, $description, $fileName, $platform, $idGame)
+    {
         $sql = "UPDATE jeux SET date = ?, description = ?, titre = ?, vignette = ?, plateforme = ? WHERE id = ?";
 
         $param = [$date, $description, $title, $fileName, $platform, $idGame];
         return ConnexionDB::DbRun($sql, $param);
     }
 
-    public static function SearchGamesByTitleOrDescription($search){
+    /**
+     * Récuperer les jeux en fonction d'une recherche sur le titre ou la description
+     *
+     * @param string $search la recherche
+     * @return object Les jeux correspondant à la recherche
+     */
+    public static function SearchGamesByTitleOrDescription($search)
+    {
         $sql = "SELECT * FROM jeux WHERE description LIKE ? OR titre LIKE ? ";
 
         $param = ["%$search%", "%$search%"];
         return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Récuperer les jeux que l'utilisateur a commenté
+     *
+     * @param [type] $idUser L'id de l'utilisateur
+     * @return object Les jeux commentés par l'utilisateur
+     */
+    public static function GetGamesOfUserComment($idUser)
+    {
+        $sql = "SELECT DISTINCT jeux.id FROM jeux INNER JOIN avis ON jeux.id = avis.jeux_id INNER JOIN utilisateurs ON utilisateurs.id = avis.utilisateurs_id AND utilisateurs.id = ?";
+
+        $param = [$idUser];
+        return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Tri les jeux par la moyenne des notes
+     *
+     * @return array $sortedGames Le tableau des jeux triés
+     */
+    public static function SortedGamesByAverageMark()
+    {
+        $games = self::GetAllGames();
+
+        $averageMarks = array();
+        foreach ($games as $game) {
+            $marks = self::GetMarksOfGame($game->id);
+            if (count($marks) > 0) {
+                $average = self::AverageMarks($marks);
+                $averageMarks[$game->id] = $average;
+            } else {
+                $averageMarks[$game->id] = 0;
+            }
+        }
+
+        // Tri décroissant des moyennes
+        arsort($averageMarks);
+
+        $sortedGames = array();
+        foreach ($averageMarks as $gameId => $averageMark) {
+            $sortedGames[] = self::GetGameById($gameId);
+        }
+
+        return $sortedGames;
     }
 }

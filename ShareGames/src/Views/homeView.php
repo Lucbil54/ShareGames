@@ -16,11 +16,6 @@
 	<meta name="description" content="" />
 	<meta name="keywords" content="bootstrap, bootstrap5" />
 
-
-	
-
-
-
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<title>Accueil</title>
@@ -28,11 +23,6 @@
 
 <body>
 	<?php include "inc/header.php" ?>
-
-	<!--<form action="#">
-		<input type="text" class="form-control" placeholder="Search...">
-		<span class="bi-search"></span>
-	</form>-->
 
 	<section class="section">
 		<div class="container">

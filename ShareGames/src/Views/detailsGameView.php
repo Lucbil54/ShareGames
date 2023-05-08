@@ -49,10 +49,9 @@
               <div class="col-md-12 mb-4">
                 <?php
                 echo "<img src='assets/images/" . $game->vignette . "' alt='image' class='img-fluid rounded'>";
-                ?> <p><?= $game->description ?></p>
+                ?>
               </div>
             </div>
-            <p>Plateforme : <?= $game->plateforme ?></p>
           </div>
 
           <div class="pt-5 comment-wrap">
@@ -89,6 +88,15 @@
             <ul class="tags">
               <?php echo $listTypes; ?>
             </ul>
+            <br><br>
+            <h3 class="heading">Plateforme</h3>
+            <ul class="tags">
+              <li><a href=""><?= $game->plateforme ?></a></li>
+            </ul>
+            <br><br>
+            <h3 class="heading">Description</h3>
+            <p><?= $game->description ?></p>
+
           </div>
         </div>
       </div>

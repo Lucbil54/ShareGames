@@ -46,11 +46,10 @@
 		<input type="file" name="avatar" accept="image/*">
 
 		<input type="submit" value="S'inscrire" name="register">
-        <p class="small mb-5 pb-lg-2"><?php echo $message; ?></p>
+        <p class="small mb-5 pb-lg-2" style="color: red;"><?php echo $message; ?></p>
 
         <div>
-            <p class="mb-0">Vous avez déjà un compte ? <a href="/connexion">Connexion</a>
-            </p>
+            <p class="mb-0">Vous avez déjà un compte ? <a href="/connexion">Connexion</a></p>
         </div>
     </form>
     <?php include "inc/footer.php"; ?>

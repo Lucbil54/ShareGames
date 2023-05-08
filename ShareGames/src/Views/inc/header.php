@@ -24,6 +24,7 @@
 								if($_SESSION['admin']){
 									echo "<li><a href='/gestionJeux'>Gestion</a></li>";
 								}
+								echo "<li><a href='/profil'>Profil</a></li>";
 								echo "<li><a href='/deconnexion'>Deconnexion</a></li>";
 							} else {
 							?>

@@ -30,7 +30,7 @@
 
 <body>
     <?php include "inc/header.php"; ?>
-    <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+    <div>
         <form method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-6 mb-3">

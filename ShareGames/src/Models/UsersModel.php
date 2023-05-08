@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Class model pour la gestion d'utilisateurs
  *
@@ -13,6 +14,7 @@ use PDO;
 class UsersModel
 {
     const USER_AVATAR_DEFAULT = "User_Avatar_Default.png";
+    const CHAR_PWD_DEFAULT = 8;
 
     /**
      * Création d'un utilisateur
@@ -29,7 +31,7 @@ class UsersModel
         $param = [$name, $password, $fileName, $admin];
         return ConnexionDB::DbRun($sql, $param);
     }
-    
+
     /**
      * Verifie si le nom d'utilisateur est déjà pris
      *
@@ -57,7 +59,8 @@ class UsersModel
      * @param string $nameUser Le nom d'utilisateur
      * @return string $fileName Le nouveau nom du fichier
      */
-    public static function RenameAvatar($fileName, $nameUser){
+    public static function RenameAvatar($fileName, $nameUser)
+    {
         $extension = explode(".", $fileName)[1];
         $fileName = $nameUser . "." . $extension;
 
@@ -70,7 +73,8 @@ class UsersModel
      * @param string $name Le nom d'utilisateur
      * @return object L'utilisateur
      */
-    public static function GetUserByName($name){
+    public static function GetUserByName($name)
+    {
         $sql = "SELECT * FROM utilisateurs WHERE login = ?";
 
         $param = [$name];
@@ -83,14 +87,15 @@ class UsersModel
      * @param string $idUser l'id de l'utilisateur
      * @return object L'utilisateur
      */
-    public static function GetUserById($idUser){
+    public static function GetUserById($idUser)
+    {
         $sql = "SELECT * FROM utilisateurs WHERE id = ?";
 
         $param = [$idUser];
         return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
     }
 
-     /**
+    /**
      * Change le mot de passe de l'utilisateur
      *
      * @param string $newPassword Le nouveau mot de passe
@@ -101,10 +106,39 @@ class UsersModel
         $sql = "UPDATE utilisateurs SET password = ? WHERE id = ?";
         $param = [$newPassword, $idUser];
 
-        ConnexionDB::DbRun($sql, $param);
+        return ConnexionDB::DbRun($sql, $param);
     }
 
-   /* public static function UserIsConnected(){
-       return isset($_SESSION['userIsConnected']) && $_SESSION['userIsConnected'] ? true : false;
-    }*/
+    /**
+     * Change l'avatar de l'utilisateur
+     *
+     * @param [type] $newAvatar Le nouveau avatar
+     * @param [type] $idUser L'id de l'utilisateur
+     * @return void
+     */
+    public static function ChangeAvatar($newAvatar, $idUser)
+    {
+        $sql = "UPDATE utilisateurs SET avatar = ? WHERE id = ?";
+        $param = [$newAvatar, $idUser];
+
+        return ConnexionDB::DbRun($sql, $param);
+    }
+
+    /**
+     * Génère un mot de passe aléatoire
+     *
+     * @param int $length La taille du mot de passe
+     * @return string $password Le mot de passe
+     */
+    public static function GeneratePassword($length = self::CHAR_PWD_DEFAULT)
+    {
+
+        $characters = array_merge(range('a', 'z'), range('A', 'Z'), range(0, 9));
+        $password = "";
+
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[rand(0, count($characters) - 1)];
+        }
+        return $password;
+    }
 }

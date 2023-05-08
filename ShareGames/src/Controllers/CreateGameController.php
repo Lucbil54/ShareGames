@@ -45,7 +45,7 @@ class CreateGameController
                         $idGame = GamesModel::CreateGame($date, $description, $title, $fileName, $platform);
                         
                         foreach ($types as $key => $type) {
-                            $idType = TypesModel::GetTypeByName($type);
+                            $idType = TypesModel::GetIdTypeByName($type);
                             TypesModel::GiveTypeToGame($idGame, $idType->id);
                         }
 

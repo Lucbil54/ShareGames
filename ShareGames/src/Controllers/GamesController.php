@@ -35,7 +35,7 @@ class GamesController
                 $games = GamesModel::GetGameMoreRecently();
             }
             else if ($filter == self::FILTER_MARK) {
-                // A implémenté    
+                $games = GamesModel::SortedGamesByAverageMark();
             }
         }   
         $displayGames = self::DisplayGames($games);
@@ -57,7 +57,7 @@ class GamesController
 
             $output .=  "<div class='col-lg-4 mb-4'>
             <div class='post-entry-alt'>
-                <a href='single.html' class='img-link'><img src='assets/images/$game->vignette' alt='Image' class='img-fluid'></a>
+                <a href='detailsJeu?idGame=$game->id' class='img-link'><img src='assets/images/$game->vignette' alt='Image' class='img-fluid'></a>
                 <div class='excerpt'>
                     <h2><a href='detailsJeu?idGame=$game->id'>$game->titre</a></h2>
                     <div class='post-meta align-items-center text-left clearfix'>

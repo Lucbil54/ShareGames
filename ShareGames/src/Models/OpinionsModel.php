@@ -57,11 +57,34 @@ class OpinionsModel
         return ConnexionDB::DbRun($sql, $param);
     }
 
+    /**
+     * Modifier un avis
+     *
+     * @param int $idOpinion L'id de l'avis
+     * @param string $title Le titre de l'avis
+     * @param text $description La description de l'avis
+     * @param int $mark La note de l'avis
+     * @param date $date La date de l'avis
+     * @return void
+     */
     public static function UpdateOpinion($idOpinion, $title, $description, $mark, $date){
         $sql = "UPDATE avis SET date = ?, titre = ?, description = ?, note = ? WHERE id = ?";
 
         $param = [$date, $title, $description, $mark, $idOpinion];
         return ConnexionDB::DbRun($sql, $param);
+    }
+    
+    /**
+     * Compte les commentaires de l'utilisateurs
+     *
+     * @param int $idUser l'id de l'utilisateur
+     * @return int Le nombre de commentaires
+     */
+    public static function CountCommentaryOfUser($idUser){
+        $sql = "SELECT * FROM avis WHERE utilisateurs_id = ?";
+
+        $param = [$idUser];
+        return count(ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ));
     }
 
 }

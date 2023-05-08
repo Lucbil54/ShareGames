@@ -486,11 +486,6 @@ progress {
   .blockquote-footer::before {
     content: "\2014\00A0"; }
 
-.img-fluid {
-  width: 100%;
-  height: 100%;
-}
-
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -9894,7 +9889,9 @@ textarea {
 .retro-layout-alt .img-2 {
   background-size: cover;
   background-position: center center;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  margin-right: 2px;
+}
   @media (max-width: 767.98px) {
     .retro-layout-alt .img-2 {
       height: 240px !important; } }
@@ -9947,8 +9944,8 @@ textarea {
   margin-top: 10px; }
 
 .retro-layout-alt .v-height {
-  height: 300px; }
-
+  height: 300px;
+}
 .retro-layout-alt .text {
   position: absolute;
   bottom: 0;
@@ -9983,8 +9980,13 @@ textarea {
   position: relative;
   overflow: hidden;
   display: inline-block;
-  border-radius: 10px;
-  margin-bottom: 10px; }
+  border-radius: 10px; 
+}
+
+.img-fluid{
+  height: 100%;
+  width: 100%;
+}
 
 .posts-entry .blog-entry h2, .posts-entry .blog-entry .h2 {
   line-height: 1.3;
@@ -10012,7 +10014,7 @@ textarea {
 .posts-entry .blog-entry-search-item {
   margin-bottom: 30px; }
   .posts-entry .blog-entry-search-item .img-link {
-    width: 280px;
+    width: 100%;
     border-radius: 0; }
     .posts-entry .blog-entry-search-item .img-link img {
       margin-bottom: 0;
@@ -10040,7 +10042,6 @@ textarea {
   margin-bottom: 10px; }
   .post-entry-alt .img-link img {
     margin-bottom: 1%;
-  
     height: 500px; }
 
 .post-meta {

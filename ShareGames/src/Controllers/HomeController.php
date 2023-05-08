@@ -14,23 +14,24 @@ use ShareGames\Models\GamesModel;
 class HomeController
 {
 	const LIMIT_GAMES_RECENTLY = 5;
+
 	public function Home()
 	{
-		$IdTopGames = GamesModel::GetTopGames();
-		$cardsTopGames = self::CardTopGames($IdTopGames);
+		$topGames = GamesModel::GetTopGames();
+		$cardsTopGames = self::CardTopGames($topGames);
 		$cardsMoreRecently = self::CardGamesMoreRecently();
 
 		require_once "../src/Views/homeView.php";
 	}
 
-	public function CardTopGames($IdTopGames)
+	public function CardTopGames($topGames)
 	{
 		$output = "<div class='row align-items-stretch retro-layout-alt'><div class='two-col d-block d-md-flex justify-content-between'>";
-		for ($i = 0; $i < count($IdTopGames); $i++) {
-			$game = GamesModel::GetGameById($IdTopGames[$i]);
-
+		foreach ($topGames as $game) {
 			$output .= self::CardNormaly($game);
 		}
+
+
 		$output .= "</div></div>";
 		return $output;
 	}

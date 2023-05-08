@@ -25,13 +25,26 @@ class TypesModel
         return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function GetTypeByName($type){
+    /**
+     * Récuperer l'identifiant du type par rapport a son nom
+     *
+     * @param string $type Le nom du type
+     * @return object l'id du type
+     */
+    public static function GetIdTypeByName($type){
         $sql = "SELECT id FROM types WHERE type = ?";
 
         $param = [$type];
         return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * Donne un type à un jeu
+     *
+     * @param [type] $idGame L'id du jeu
+     * @param [type] $idType L'id du type de jeu
+     * @return void
+     */
     public static function GiveTypeToGame($idGame, $idType){
         $sql = "INSERT INTO jeux_has_types(jeux_id, types_id) VALUES (?,?)";
 
@@ -39,6 +52,12 @@ class TypesModel
         return ConnexionDB::DbRun($sql, $param);
     }
 
+    /**
+     * Réuperer les types d'un jeu
+     *
+     * @param [type] $idGame L'id du jeu
+     * @return array $types Les types du jeu
+     */
     public static function GetTypesOfGame($idGame){
         $sql = "SELECT types_id FROM jeux_has_types WHERE jeux_id = ?";
 
@@ -59,6 +78,13 @@ class TypesModel
         return $types;
     }
 
+    /**
+     * Supprimer le type d'un jeu
+     *
+     * @param [type] $idGame L'id du jeu
+     * @param [type] $idType L'id du type
+     * @return void
+     */
     public static function DeleteTypeOfGame($idGame, $idType){
         $sql = "DELETE FROM jeux_has_types WHERE jeux_id = ? AND types_id = ?";
 
