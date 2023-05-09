@@ -34,11 +34,11 @@
         <form method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-6 mb-3">
-                    <label for="title">Titre:</label>
+                    <label for="title">Titre: *</label>
                     <input type="text" id="title" name="title" placeholder="Entrez le titre" value="<?= $title ?>" required>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="platform">Sélectionner la plateforme:</label>
+                    <label for="platform">Sélectionner la plateforme: *</label>
                     <select name="platform" id="platform">
                         <option value="PS">PS</option>
                         <option value="XBOX">XBOX</option>
@@ -48,11 +48,11 @@
                     </select>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="types">Sélectionner les types du jeu:</label>
+                    <label for="types">Sélectionner les types du jeu: *</label>
                     <?php echo $checkbox; ?>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="vignette">Sélectionnez une vignette :</label>
+                    <label for="vignette">Sélectionnez une vignette : *</label>
                     <input type="file" name="file" accept="image/*">
                 </div>
                 <div class="col-12 mb-3">

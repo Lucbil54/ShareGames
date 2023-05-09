@@ -11,7 +11,11 @@ namespace ShareGames\Controllers;
 use ShareGames\Models\UsersModel;
 
 class RegisterController{
-    
+    /**
+     * Inscription
+     *
+     * @return void
+     */
     public function Register(){
 
         define("ADMIN_DEFAULT", 0);

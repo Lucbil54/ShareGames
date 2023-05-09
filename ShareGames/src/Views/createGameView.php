@@ -32,7 +32,7 @@
     <?php include "inc/header.php"; ?>
     <form method="post" enctype="multipart/form-data">
 
-        <label for="title">Titre:</label>
+        <label for="title">Titre: *</label>
         <input type="text" id="title" name="title" placeholder="Entrez le titre" required>
 
         <label for="description">Description (optionnel) :</label>
@@ -47,12 +47,12 @@
             <option value="autre" selected>Autre</option>
         </select>
         <br>
-        <label for="types">Sélectionner les types du jeu:</label>
+        <label for="types">Sélectionner les types du jeu: *</label>
         
         <?php echo $checkbox; ?>
         
         <br>
-        <label for="vignette">Sélectionnez une vignette :</label>
+        <label for="vignette">Sélectionnez une vignette : *</label>
         <input type="file" name="file" accept="image/*">
 
         <input type="submit" value="Création de la fiche" name="btnCreate">

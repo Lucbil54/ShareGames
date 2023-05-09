@@ -16,6 +16,11 @@ use ShareGames\Models\UsersModel;
 
 class UpdateController
 {
+    /**
+     * Modifier l'avis
+     *
+     * @return void
+     */
     public function UpdateOpinion()
     {
         $idOpinion = filter_input(INPUT_GET, "idOpinion");
@@ -36,6 +41,11 @@ class UpdateController
         require "../src/Views/updateOpinionView.php";
     }
 
+    /**
+     * Modifier le jeu
+     *
+     * @return void
+     */
     public function UpdateGame()
     {
         if ($_SESSION['admin']) {
@@ -47,13 +57,13 @@ class UpdateController
             $fileName = $game->vignette;
 
             $message = "";
-            $checkbox = self::GenerateCheckbox();
+            $checkbox = FunctionsController::GenerateCheckbox();
 
             if (filter_input(INPUT_POST, 'btnUpdateGame')) {
                 $file = $_FILES['file'];
                 if ($file['name'] != "") {
                     // Suppression de l'ancienne image dans le dossier
-                    unlink($fileName);
+                    unlink("assets/images/" . $fileName);
 
                     $fileName = $file['name'];
                     $file_tmp = $file['tmp_name'];
@@ -112,17 +122,11 @@ class UpdateController
         require "../src/Views/updateGameView.php";
     }
 
-    public function GenerateCheckbox()
-    {
-        $types = TypesModel::GetAllTypes();
-        $checkbox = "";
-        foreach ($types as $type) {
-            $checkbox .= "<input style='margin-left: 5px;' type='checkbox' name='types[]' value='$type->type'>$type->type";
-        }
-
-        return $checkbox;
-    }
-
+    /**
+     * Modifier l'utilisateur
+     *
+     * @return void
+     */
     public function UpdateUser()
     {
         $idUser = $_SESSION['idUser'];
@@ -154,10 +158,11 @@ class UpdateController
                 }
             }
 
-            if($avatar['name'] != ""){
-                $old_avatar = $user->avatar;
+            $old_avatar = $user->avatar;
 
-                unlink($old_avatar);
+            if ($avatar['name'] != "") {
+
+                unlink("assets/images/" . $old_avatar);
 
                 $new_avatar = $avatar['name'];
                 $file_tmp = $avatar['tmp_name'];
@@ -166,14 +171,12 @@ class UpdateController
                 move_uploaded_file($file_tmp, "assets/images/" . $new_avatar);
 
                 UsersModel::ChangeAvatar($new_avatar, $idUser);
-            }
-            else if (!$keepAvatar){
-                $old_avatar = $user->avatar;
+            } else if (!$keepAvatar) {
 
-                unlink($old_avatar);
+                unlink("assets/images/" . $old_avatar);
 
                 $new_avatar = null;
-                
+
                 UsersModel::ChangeAvatar($new_avatar, $idUser);
             }
 

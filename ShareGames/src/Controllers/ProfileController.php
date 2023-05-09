@@ -19,6 +19,8 @@ class ProfileController
     {
         if (isset($_SESSION['idUser'])) {
 
+            $displayGames = "";
+
             $user = UsersModel::GetUserById($_SESSION['idUser']);
 
             if ($user->avatar == null) {
@@ -43,7 +45,12 @@ class ProfileController
             exit;
         }
     }
-
+    /**
+     * Affichage des jeux
+     *
+     * @param array $idGames Les identifiants des jeux à afficher
+     * @return string $output L'affichage des jeux
+     */
     public function DisplayGames($idGames)
     {
         $countGames = 0;
@@ -56,9 +63,16 @@ class ProfileController
                $output .= "<div class='row g-2'>";
             }
 
-            $output .= "<div class='col mb-2'><a href='detailsJeu?idGame=$idGame->id'>
-            <img src='assets/images/$game->vignette'
-              alt='image 1' class='w-100 h-100 rounded-3'></a>
+            $output .= "<div class='col mb-2'><a href='detailsJeu?idGame=$idGame->id'>";
+           if ($game->vignette == null) {
+            $output .= "<img src='assets/images/". UsersModel::USER_AVATAR_DEFAULT ."'";
+           }
+           else{
+            $output .= "<img src='assets/images/$game->vignette'";
+           }
+           
+           
+           $output .= "alt='image 1' class='w-100 h-100 rounded-3'></a>
           </div>";
 
 

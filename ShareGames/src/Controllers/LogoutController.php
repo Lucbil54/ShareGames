@@ -10,6 +10,11 @@ namespace ShareGames\Controllers;
 
 class LogoutController
 {
+    /**
+     * Déconnexion
+     *
+     * @return void
+     */
     public function Logout()
     {
         // Vide la session

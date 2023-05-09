@@ -20,6 +20,11 @@ class GamesController
     const FILTER_DATE = "date";
     const FILTER_MARK = "mark";
 
+    /**
+     * Jeux
+     *
+     * @return void
+     */
     public function Games()
     {
         $games = GamesModel::GetAllGames();
@@ -43,6 +48,12 @@ class GamesController
         require "../src/Views/gamesView.php";
     }
 
+    /**
+     * Affichage des jeux
+     *
+     * @param object $games Les jeux à afficher
+     * @return string $output L'affichage des jeux
+     */
     public function DisplayGames($games)
     {
         $output = "";

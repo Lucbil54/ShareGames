@@ -48,7 +48,7 @@
             <div class="row my-4">
               <div class="col-md-12 mb-4">
                 <?php
-                echo "<img src='assets/images/" . $game->vignette . "' alt='image' class='img-fluid rounded'>";
+                echo "<img src='assets/images/" . $game->vignette . "' alt='image' style='margin-right:25%; width:50%; margin-left:25%;' class='imgDetailsGame'>";
                 ?>
               </div>
             </div>
@@ -63,11 +63,11 @@
               <h3 class="mb-5">Commenter le jeu</h3>
               <form method="post" class="p-5 bg-light">
                 <div class="form-group">
-                  <label for="title">Titre</label>
+                  <label for="title">Titre *</label>
                   <input type="text" class="form-control" id="title" name="title" required>
                 </div>
                 <div class="form-group">
-                  <label for="mark">Note</label>
+                  <label for="mark">Note *</label>
                   <input type="number" min="0" max="10" class="form-control" id="mark" name="mark" required>
                 </div>
 
@@ -76,7 +76,12 @@
                   <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                  <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class="btn btn-primary" style="background-color: blue;">
+                  <?php if(!isset($_SESSION['userIsConnected']) || !$_SESSION['userIsConnected']){ ?>
+                  <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class='btn btn-sm btn-outline-primary' style="margin-right:25%; margin-left:25%; width: 50%;" disabled>
+                  <p style="text-align: center; color:red">Connectez-vous pour commenter le jeu</p>
+                  <?php }else{ ?>
+                    <input type="submit" value="Poster un commentaire" name="btnSubmitOpinion" class='btn btn-sm btn-outline-primary' style="margin-right:25%; margin-left:25%; width: 50%;">
+                <?php  } ?>
                 </div>
               </form>
             </div>

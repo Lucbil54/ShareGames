@@ -30,6 +30,8 @@
     <?php include "inc/header.php"; ?>
 
     <h1 class="heading text-black mb-3" style="text-align: center; margin-top: 2%;" data-aos="fade-up">Gestion des jeux</h1>
+    <br>
+    <a href="/creationJeu" class='btn btn-sm btn-outline-primary' style="margin-right: 45%; margin-left: 45%; width: 10%;">Créer une fiche de jeu</a>
     <div class="section search-result-wrap">
         <div class="container">
             <div class="row posts-entry">
@@ -58,10 +60,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <a href="/creationJeu" class="btn btn-primary">Créer une fiche de jeu</a>
     <?php include "inc/footer.php"; ?>
 </body>
 

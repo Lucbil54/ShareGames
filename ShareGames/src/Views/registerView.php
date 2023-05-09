@@ -33,13 +33,13 @@
     <?php include "inc/header.php"; ?>
     <form method="post" enctype="multipart/form-data">
 
-        <label for="name">Nom:</label>
+        <label for="name">Nom: *</label>
 		<input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
 
-		<label for="password">Mot de passe:</label>
+		<label for="password">Mot de passe: *</label>
 		<input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
 
-        <label for="password">Mot de passe:</label>
+        <label for="password">Confirmation du mot de passe: *</label>
 		<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" minlength="8" required>
 
         <label for="avatar">Sélectionnez un avatar (optionnel) :</label>

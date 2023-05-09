@@ -15,6 +15,11 @@ use ShareGames\Models\TypesModel;
 
 class CreateGameController
 {
+    /**
+     * Créer un jeu
+     *
+     * @return void
+     */
     public function CreateGame()
     {
         if (!$_SESSION['admin']) {
@@ -22,12 +27,13 @@ class CreateGameController
         } else {
 
             $message = "";
-            $checkbox = self::GenerateCheckbox();
+            $checkbox = FunctionsController::GenerateCheckbox();
 
             if (filter_input(INPUT_POST, 'btnCreate')) {
                 $files = $_FILES['file'];
                 if ($_FILES['file']['name'] != "") {
                     if (isset($_POST['types'])) {
+
                         $title = filter_input(INPUT_POST, 'title');
                         $description = filter_input(INPUT_POST, 'description');
                         $platform = filter_input(INPUT_POST, "platform");
@@ -35,15 +41,16 @@ class CreateGameController
 
                         $date = date("Y-m-d");
 
+                        // Traitement de l'image
                         $fileName = $_FILES['file']['name'];
                         $file_tmp = $_FILES['file']['tmp_name'];
-
                         $fileName = GamesModel::NameFileRandom($fileName);
 
                         move_uploaded_file($file_tmp, "assets/images/" . $fileName);
 
                         $idGame = GamesModel::CreateGame($date, $description, $title, $fileName, $platform);
                         
+                        // Attribue les types au jeu
                         foreach ($types as $key => $type) {
                             $idType = TypesModel::GetIdTypeByName($type);
                             TypesModel::GiveTypeToGame($idGame, $idType->id);
@@ -62,15 +69,5 @@ class CreateGameController
         require "../src/Views/createGameView.php";
     }
 
-    public function GenerateCheckbox()
-    {
-
-        $types = TypesModel::GetAllTypes();
-        $checkbox = "";
-        foreach ($types as $type) {
-            $checkbox .= "<input style='margin-left: 5px;' type='checkbox' name='types[]' value='$type->type'>$type->type";
-        }
-
-        return $checkbox;
-    }
+    
 }

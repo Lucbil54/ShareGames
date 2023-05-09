@@ -40,11 +40,11 @@
                                 <h3 class="mb-5">Modifier le commentaire</h3>
                                 <form method="post" class="p-5 bg-light">
                                     <div class="form-group">
-                                        <label for="title">Titre</label>
+                                        <label for="title">Titre *</label>
                                         <input type="text" class="form-control" id="title" name="title" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mark">Note</label>
+                                        <label for="mark">Note *</label>
                                         <input type="number" min="0" max="10" class="form-control" id="mark" name="mark" required>
                                     </div>
 

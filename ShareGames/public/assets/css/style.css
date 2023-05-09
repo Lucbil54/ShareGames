@@ -10521,3 +10521,7 @@ textarea {
 .starChecked{
   color: orange;
 }
+
+input:required {
+  border: 2px solid orangered;
+}

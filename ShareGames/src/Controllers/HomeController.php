@@ -15,6 +15,11 @@ class HomeController
 {
 	const LIMIT_GAMES_RECENTLY = 5;
 
+	/**
+	 * Accueil
+	 *
+	 * @return void
+	 */
 	public function Home()
 	{
 		$topGames = GamesModel::GetTopGames();
@@ -24,6 +29,12 @@ class HomeController
 		require_once "../src/Views/homeView.php";
 	}
 
+	/**
+	 * Carte pour les 10 meilleurs jeux
+	 *
+	 * @param [type] $topGames Les 10 meilleurs jeux
+	 * @return string $output L'affichage de la carte
+	 */
 	public function CardTopGames($topGames)
 	{
 		$output = "<div class='row align-items-stretch retro-layout-alt'><div class='two-col d-block d-md-flex justify-content-between'>";
@@ -36,6 +47,11 @@ class HomeController
 		return $output;
 	}
 
+	/**
+	 * Affichage des jeux les plus récents
+	 *
+	 * @return string $output L'affichage des jeux les plus récents
+	 */
 	public function CardGamesMoreRecently()
 	{
 		$output = "<div class='row align-items-stretch retro-layout-alt'>";
@@ -66,6 +82,12 @@ class HomeController
 		}
 	}
 
+	/**
+	 * Affichage du jeu le plus récent
+	 *
+	 * @param object $game Le jeu
+	 * @return string $output L'affichage du jeu le plus récent
+	 */
 	public function FirstCard($game)
 	{
 		// Change le format de la date
@@ -80,7 +102,12 @@ class HomeController
 					</a>
 				</div>";
 	}
-
+	/**
+	 * Affichage du 2 au 5ème jeux les plus récents
+	 *
+	 * @param object $game Le jeu
+	 * @return string $output L'affichage du jeu
+	 */
 	public function CardNormaly($game)
 	{
 		// Change le format de la date

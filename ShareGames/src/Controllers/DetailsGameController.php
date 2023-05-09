@@ -16,6 +16,11 @@ use ShareGames\Models\UsersModel;
 
 class DetailsGameController
 {
+    /**
+     * Détails du jeu
+     *
+     * @return void
+     */
     public function DetailsGame()
     {
         $idGame = filter_input(INPUT_GET, "idGame");
@@ -49,6 +54,13 @@ class DetailsGameController
         require "../src/Views/detailsGameView.php";
     }
 
+    /**
+     * Affichage des avis
+     *
+     * @param object $opinions les avis à afficher
+     * @param int $idGame L'id du jeu
+     * @return string $output L'affichage des avis
+     */
     public function DisplayOpinions($opinions, $idGame)
     {
         $output = "<ul class='comment-list'>";
@@ -89,6 +101,12 @@ class DetailsGameController
         return $output;
     }
 
+    /**
+     * Affichage des types du jeu dans une liste
+     *
+     * @param int $idGame L'id du jeu
+     * @return string $output L'affichage des types
+     */
     public function DisplayTypes($idGame)
     {
         $types = TypesModel::GetTypesOfGame($idGame);

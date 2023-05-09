@@ -6,13 +6,22 @@ use ShareGames\Models\GamesModel;
 
 class ManagementGamesController
 {
+    /**
+     * Gestion des jeux
+     *
+     * @return void
+     */
     public function ManagementGames()
     {
         $allGames = ManagementGamesController::DisplayGames();
 
         require "../src/Views/managementGamesView.php";
     }
-
+    /**
+     * Affichage des jeux
+     *
+     * @return string $output L'affichage des jeux
+     */
     public function DisplayGames()
     {
         $games = GamesModel::GetAllGames();

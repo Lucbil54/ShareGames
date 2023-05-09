@@ -13,7 +13,11 @@ use ShareGames\Models\UsersModel;
 
 class LoginController
 {
-
+    /**
+     * Connexion
+     *
+     * @return void
+     */
     public function Login()
     {
         define("ADMIN_DEFAULT", 0);
@@ -50,5 +54,35 @@ class LoginController
         }
 
         require_once "../src/Views/loginView.php";
+    }
+    
+    /**
+     * Oublie du mot de passe
+     *
+     * @return string Le message de retour
+     */
+    public function PasswordForgot()
+    {
+        header('Content-Type: application/json');
+        
+        $name = filter_input(INPUT_POST, "name");
+        if ($name != "") {
+            if (UsersModel::GetUserByName($name) != null) {
+                $newPwd = UsersModel::GeneratePassword();
+
+                UsersModel::ChangePassword(password_hash($newPwd, PASSWORD_DEFAULT), UsersModel::GetUserByName($name)->id);
+    
+                echo json_encode("Votre nouveau mot de passe est : " . $newPwd);
+                exit;
+            }
+            else{
+                echo json_encode("Aucun utilisateur avec ce nom");
+                exit;
+            }
+            
+        }else{
+            echo json_encode("Veuillez remplir le champs nom");
+            exit;
+        }
     }
 }
