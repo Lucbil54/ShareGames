@@ -79,7 +79,7 @@ class DetailsGameController
             $output .= "</div>
             <div class='comment-body'>
               <h3>$user->login</h3>
-              <div class='meta'>" . date("d-m-Y", strtotime($opinion->date)) . "</div>
+              <div class='meta'>" . date("d-m-Y", strtotime($opinion->date)) . "</div><span style='font-weight: bold;'>Note : $opinion->note</span><br>
               <br>
               <h5>$opinion->titre</h5>
               <p>$opinion->description</p>";

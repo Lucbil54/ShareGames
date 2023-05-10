@@ -28,4 +28,4 @@ Router::form('/modifierJeu', [UpdateController::class, 'UpdateGame']);
 Router::form('/jeux', [GamesController::class, 'Games']);
 Router::form('/profil', [ProfileController::class, 'Profile']);
 Router::form('/modifierProfil', [UpdateController::class, 'UpdateUser']);
-Router::post('/mdpOublier', [LoginController::class, 'PasswordForgot']);
+Router::form('/mdpOublier', [LoginController::class, 'PasswordForgot']);

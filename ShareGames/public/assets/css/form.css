@@ -33,4 +33,13 @@ input[type="submit"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 35%;
+    width: 30%;
+    margin-left: 35%;
+}
+
+.submitOpinion{
+    margin-right: 20%;
+    width: 60%;
+    margin-left: 20%;
 }

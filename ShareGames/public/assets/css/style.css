@@ -9756,7 +9756,9 @@ textarea {
 
 .section {
   padding-top: 4rem;
-  padding-bottom: 4rem; }
+  padding-bottom: 4rem;
+ 
+}
   .section .heading {
     font-size: 30px;
     font-weight: 700; }
@@ -10245,7 +10247,8 @@ textarea {
         color: #000; }
       .comment-list li .comment-body .meta {
         text-transform: none;
-        color: #ccc; }
+        color: #ccc;
+      }
       .comment-list li .comment-body .reply {
         margin-left: 1px;
         padding: 3px 10px;

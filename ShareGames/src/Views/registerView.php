@@ -11,20 +11,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Untree.co">
-    <!--<link rel="shortcut icon" href="assets/assets/images/favicon.png">-->
+    <link rel="shortcut icon" href="assets/images/favicon.png">
 
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
 
     <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
     <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
+    
     <link rel="stylesheet" href="assets/css/form.css">
-
 	<link rel="stylesheet" href="assets/css/style.css">
-
 
     <title>Inscription</title>
 </head>

@@ -28,10 +28,12 @@ class GamesController
     public function Games()
     {
         $games = GamesModel::GetAllGames();
+        $messageError = "";
         if (isset($_POST["btnSearch"])) {
             $search = filter_input(INPUT_POST, "search", FILTER_SANITIZE_SPECIAL_CHARS);
             $games = GamesModel::SearchGamesByTitleOrDescription($search);  
             if (count($games) == 0) {
+                $messageError = "Aucuns jeux trouvés avec '$search'.";
                 $games = GamesModel::GetAllGames();
             }
         } else if(isset($_POST["btnFilter"])) {

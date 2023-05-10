@@ -14,6 +14,7 @@ use ShareGames\Models\GamesModel;
 class HomeController
 {
 	const LIMIT_GAMES_RECENTLY = 5;
+	const HALF_TOP_GAMES = 6;
 
 	/**
 	 * Accueil
@@ -37,9 +38,15 @@ class HomeController
 	 */
 	public function CardTopGames($topGames)
 	{
-		$output = "<div class='row align-items-stretch retro-layout-alt'><div class='two-col d-block d-md-flex justify-content-between'>";
+		$nbCard = 1;
+		$output = "<div class='row align-items-stretch retro-layout-alt'><div class='two-col d-block d-md-flex justify-content-between' style='margin-bottom: 1%;'>";
 		foreach ($topGames as $game) {
+			// Affichage 5 cartes par lignes
+			if ($nbCard == self::HALF_TOP_GAMES) {
+				$output .= "</div><div class='two-col d-block d-md-flex justify-content-between'>";
+			}
 			$output .= self::CardNormaly($game);
+			$nbCard++;
 		}
 
 
@@ -57,29 +64,28 @@ class HomeController
 		$output = "<div class='row align-items-stretch retro-layout-alt'>";
 		$nbCard = 0;
 		$games = GamesModel::GetGameMoreRecently();
-		while ($nbCard < self::LIMIT_GAMES_RECENTLY) {
 
-
-			foreach ($games as $game) {
-
-				$nbCard++;
-				if ($nbCard == 1) {
-					$output .= self::FirstCard($game);
-					$output .= "<div class='col-md-7'>";
-				} else if ($nbCard % 2 == 0) {
-					$output .= "<div class='two-col d-block d-md-flex justify-content-between'>";
-				}
-
-				$output .= self::CardNormaly($game);
-
-				if ($nbCard == 3 || $nbCard == 5) {
-					$output .= "</div>";
-				}
+		foreach ($games as $game) {
+			$nbCard++;
+			if ($nbCard > self::LIMIT_GAMES_RECENTLY) {
+				break;
+			}
+			if ($nbCard == 1) {
+				$output .= self::FirstCard($game);
+				$output .= "<div class='col-md-7'>";
+			} else if ($nbCard % 2 == 0) {
+				$output .= "<div class='two-col d-block d-md-flex justify-content-between' style='margin-bottom: 1%;'>";
 			}
 
-			$output .= "</div></div>";
-			return $output;
+			$output .= self::CardNormaly($game);
+
+			if ($nbCard == 3 || $nbCard == 5) {
+				$output .= "</div>";
+			}
 		}
+
+		$output .= "</div></div>";
+		return $output;
 	}
 
 	/**
@@ -92,7 +98,7 @@ class HomeController
 	{
 		// Change le format de la date
 		$dateFormat = date("d-m-Y", strtotime($game->date));
-		return "<div class='col-md-5 order-md-2'>
+		return "<div class='col-md-5 order-md-0'>
 					<a href='detailsJeu?idGame=" . $game->id . "' class='hentry img-1 h-100 gradient'>
 						<div class='featured-img' style='background-image: url(assets/images/" . $game->vignette . ");'></div>
 						<div class='text'>

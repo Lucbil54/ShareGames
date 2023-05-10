@@ -33,6 +33,7 @@ class ConnexionDB
 
         return $pdo;
     }
+    
     /**
      * Execute la requête
      * 

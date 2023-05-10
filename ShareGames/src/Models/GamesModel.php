@@ -257,4 +257,16 @@ class GamesModel
 
         return $sortedGames;
     }
+
+    /**
+     * Récuperer un certain nombre de jeux
+     *
+     * @return void
+     */
+    public static function GetGamesByLimit($offset, $next){
+        $sql = "SELECT * FROM jeux LIMIT ?, ?";
+
+        $param = [$offset, $next];
+        return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);
+    }
 }

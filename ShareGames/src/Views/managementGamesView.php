@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Untree.co">
-    <!--<link rel="shortcut icon" href="assets/assets/images/favicon.png">-->
+    <link rel="shortcut icon" href="assets/images/favicon.jpg">
 
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap5" />
@@ -42,12 +42,7 @@
                     <div class="row text-start pt-5 border-top">
                         <div class="col-md-12">
                             <div class="custom-pagination">
-                                <span>1</span>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <span>...</span>
-                                <a href="#">15</a>
+                                <?=$displayPagination?>
                             </div>
                         </div>
                     </div>

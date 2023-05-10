@@ -11,7 +11,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Untree.co">
-  <!--<link rel="shortcut icon" href="assets/assets/images/favicon.png">-->
+  <link rel="shortcut icon" href="assets/images/favicon.png">
 
   <meta name="description" content="" />
   <meta name="keywords" content="bootstrap, bootstrap5" />
@@ -32,33 +32,26 @@
   <div class="post-entry text-center">
     <h1 class="mb-4" style="color: black; margin-top: 1%;"><?= $game->titre ?></h1>
     <div class="post-meta align-items-center text-center">
-      <span><?= date("d-m-Y", strtotime($game->date)); ?></span>
+      <span style="font-size: 18px;"><?= date("d-m-Y", strtotime($game->date)); ?></span>
     </div>
   </div>
 
   <section class="section">
     <div class="container">
-
       <div class="row blog-entries element-animate">
-
         <div class="col-md-12 col-lg-8 main-content">
-
           <div class="post-content-body">
-
             <div class="row my-4">
               <div class="col-md-12 mb-4">
                 <?php
-                echo "<img src='assets/images/" . $game->vignette . "' alt='image' style='margin-right:25%; width:50%; margin-left:25%;' class='imgDetailsGame'>";
+                echo "<img src='assets/images/" . $game->vignette . "' alt='image' style='width:70%; margin-left:30%;'>";
                 ?>
               </div>
             </div>
           </div>
-
           <div class="pt-5 comment-wrap">
             <h3 class="mb-5 heading"><?= $nbOpinions ?> Commentaires</h3>
-
             <?php echo $displayOpinions; ?>
-
             <div class="comment-form-wrap pt-5">
               <h3 class="mb-5">Commenter le jeu</h3>
               <form method="post" class="p-5 bg-light">

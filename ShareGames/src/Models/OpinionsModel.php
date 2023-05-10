@@ -87,4 +87,17 @@ class OpinionsModel
         return count(ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ));
     }
 
+    /**
+     * Récuperer un avis par rapport à son identifiant
+     *
+     * @param int $idOpinion L'id de l'avis
+     * @return object L'avis
+     */
+    public static function GetOpinionById($idOpinion){
+        $sql = "SELECT * FROM avis WHERE id = ?";
+
+        $param = [$idOpinion];
+        return ConnexionDB::DbRun($sql, $param)->fetch(PDO::FETCH_OBJ);
+    }   
+
 }

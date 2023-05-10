@@ -26,6 +26,16 @@ class UpdateController
         $idOpinion = filter_input(INPUT_GET, "idOpinion");
         $idGame = filter_input(INPUT_GET, "idGame");
 
+        $opinion = OpinionsModel::GetOpinionById($idOpinion);
+
+        $title = $opinion->titre;
+        $mark = $opinion->note;
+
+        $description = "";
+        if ($opinion->description != null) {
+            $description = $opinion->description;
+        }
+
         if (filter_input(INPUT_POST, "btnSubmitOpinion")) {
             $title = filter_input(INPUT_POST, "title");
             $mark = filter_input(INPUT_POST, "mark", FILTER_VALIDATE_INT);
@@ -53,8 +63,12 @@ class UpdateController
             $game = GamesModel::GetGameById($idGame);
 
             $title = $game->titre;
-            $description = $game->description;
             $fileName = $game->vignette;
+
+            $description = "";
+            if ($game->description != null) {
+                $description = $game->description;
+            }
 
             $message = "";
             $checkbox = FunctionsController::GenerateCheckbox();
