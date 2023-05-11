@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/form.css">
 
-    <title>Modifier un avis</title>
+    <title>Modification d'un avis</title>
 </head>
 
 <body>

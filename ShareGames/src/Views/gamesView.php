@@ -60,8 +60,10 @@
                 <?php echo $displayGames; ?>
             </div>
         </div>
-        </div>
     </section>
+   
+    <?=$displayPagination?>
+                         
 
     <?php include "inc/footer.php"; ?>
 </body>

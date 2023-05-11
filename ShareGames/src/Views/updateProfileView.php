@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Modification profil</title>
+    <title>Modification du profil</title>
 </head>
 
 <body>

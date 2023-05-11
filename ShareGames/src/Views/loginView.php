@@ -39,23 +39,24 @@
         <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
 
         <input type="submit" value="Se connecter" name="login">
-        <p class="small mb-5 pb-lg-2" style="color: red;"><?php echo $message; ?></p>
-
+        <div style="margin-top: 1%;">
+            <p class="small mb-3 pb-lg-1" style="color: red; text-align:center;"><?php echo $message; ?></p>
+        </div>
         <div style="text-align: center;">
-            <p class="mb-0">Mot de passe oublié ? (Remplissez le champs nom avant de cliquer) <a href="" onclick="ForgotPassword()">Cliquez-ici</a></p>
+            <p class="mb-0"><a href="" style="color: blue;" onclick="ForgotPassword()">Mot de passe oublié ?</a> (Remplissez le champs nom avant de cliquer)</p>
         </div>
     </form>
     <?php include "inc/footer.php"; ?>
 </body>
 <script>
     function ForgotPassword() {
-        
+
         var name = document.getElementById("name").value;
         var form = document.getElementById('form');
         var formData = new FormData(form);
 
         var xhr = new XMLHttpRequest();
-        
+
         xhr.open('POST', '/mdpOublier');
         xhr.send(formData);
 
@@ -67,7 +68,6 @@
             }
         });
     }
-
 </script>
 
 </html>

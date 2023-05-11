@@ -15,10 +15,10 @@ use ShareGames\Models\TypesModel;
 
 class GamesController
 {
-    const MAX_MARK = 10;
-
     const FILTER_DATE = "date";
     const FILTER_MARK = "mark";
+
+    const LIMIT_GAME_TO_PAGE = 12;
 
     /**
      * Jeux
@@ -29,76 +29,62 @@ class GamesController
     {
         $games = GamesModel::GetAllGames();
         $messageError = "";
+
+        // Gestion des filtrages et de la recherche
         if (isset($_POST["btnSearch"])) {
+            $_SESSION['searchGames'] = null;
+            $_SESSION['filter'] = null;
             $search = filter_input(INPUT_POST, "search", FILTER_SANITIZE_SPECIAL_CHARS);
-            $games = GamesModel::SearchGamesByTitleOrDescription($search);  
+            $games = GamesModel::SearchGamesByTitleOrDescription($search);
+            $_SESSION['searchGames'] = $search;
             if (count($games) == 0) {
                 $messageError = "Aucuns jeux trouvés avec '$search'.";
                 $games = GamesModel::GetAllGames();
             }
-        } else if(isset($_POST["btnFilter"])) {
+        } else if (isset($_POST["btnFilter"])) {
+            $_SESSION['filter'] = null;
+            $_SESSION['searchGames'] = null;
             $filter = filter_input(INPUT_POST, "filter");
             if ($filter == self::FILTER_DATE) {
+                $_SESSION['filter'] = self::FILTER_DATE;
                 $games = GamesModel::GetGameMoreRecently();
-            }
-            else if ($filter == self::FILTER_MARK) {
+            } else if ($filter == self::FILTER_MARK) {
+                $_SESSION['filter'] = self::FILTER_MARK;
                 $games = GamesModel::SortedGamesByAverageMark();
             }
-        }   
-        $displayGames = self::DisplayGames($games);
-
-        require "../src/Views/gamesView.php";
-    }
-
-    /**
-     * Affichage des jeux
-     *
-     * @param object $games Les jeux à afficher
-     * @return string $output L'affichage des jeux
-     */
-    public function DisplayGames($games)
-    {
-        $output = "";
-
-        foreach ($games as $game) {
-            // Récupère la moyenne des notes du jeu arrondi à l'entier
-            $average = round(GamesModel::AverageMarks(GamesModel::GetMarksOfGame($game->id)));
-
-            $types = TypesModel::GetTypesOfGame($game->id);
-            
-            $dateFormat = date("d-m-Y", strtotime($game->date));
-
-            $output .=  "<div class='col-lg-4 mb-4'>
-            <div class='post-entry-alt'>
-                <a href='detailsJeu?idGame=$game->id' class='img-link'><img src='assets/images/$game->vignette' alt='Image' class='img-fluid'></a>
-                <div class='excerpt'>
-                    <h2><a href='detailsJeu?idGame=$game->id'>$game->titre</a></h2>
-                    <div class='post-meta align-items-center text-left clearfix'>
-                       <span>$dateFormat</span>";
-
-            foreach ($types as $type) {
-                $output .= "<span style='float:right'>&nbsp $type->type</span>";
-            }
-
-            $output .= "<br><div style='text-align: center;'>";
-
-            if ($average != 0) {
-                // Affichage moyenne sous forme d'étoiles
-                for ($i = 0; $i < self::MAX_MARK; $i++) {
-                    if ($i < $average) {
-                        $output .= "<span class='fa fa-star starChecked'></span>";
-                    } else {
-                        $output .= "<span class='fa fa-star'></span>";
-                    }
-                }
+        }
+        // Gestion si changement de page pour garder les filtres
+        else if(isset($_SESSION['searchGames'])){
+            $games = GamesModel::SearchGamesByTitleOrDescription($_SESSION['searchGames']);
+        }
+        else if (isset($_SESSION['filter'])) {
+            if ($_SESSION['filter'] == self::FILTER_DATE) {
+                $games = GamesModel::GetGameMoreRecently();
             }
             else{
-                $output .= "<span>Non noté</span>";
+                $games = GamesModel::SortedGamesByAverageMark();
             }
-            $output .= "</div></div><p>$game->description</p>
-                    <p><a href='detailsJeu?idGame=$game->id' class='btn btn-sm btn-outline-primary cardGame'>Voir plus</a></p></div></div></div>";
         }
 
-        return $output;
+        $page = filter_input(INPUT_GET, "page");
+
+        
+        if (count($games) < 1) {
+            $games = GamesModel::GetAllGames();
+            $_SESSION['searchGames'] = null;
+            $_SESSION['filter'] = null;
+        }
+
+        $idGames = FunctionsController::GetStrIdsGames($games);
+
+        $offset = FunctionsController::GetOffset($page, self::LIMIT_GAME_TO_PAGE);
+
+        $displayPagination = FunctionsController::DisplayPagination($games, self::LIMIT_GAME_TO_PAGE, "jeux");
+
+        $games = GamesModel::GetGamesByLimit($offset, self::LIMIT_GAME_TO_PAGE, $idGames);
+
+        $displayGames = FunctionsController::DisplayGames($games, false);
+
+        require "../src/Views/gamesView.php";
     }
 }

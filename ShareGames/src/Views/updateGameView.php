@@ -25,7 +25,7 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Création d'une fiche de jeu</title>
+    <title>Modification d'une fiche de jeu</title>
 </head>
 
 <body>

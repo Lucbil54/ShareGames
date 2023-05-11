@@ -134,7 +134,7 @@ class GamesModel
         }
 
         if ($nbMarks != 0) {
-            $average /= $nbMarks;
+            $average = (double)($average / $nbMarks);
         } else {
             $average = 0;
         }
@@ -261,10 +261,13 @@ class GamesModel
     /**
      * Récuperer un certain nombre de jeux
      *
+     * @param int $offset L'index du premier jeu a récupérer
+     * @param int $next Le nombre de jeux à récupérés
+     * @param string $idGames Les identifiants des jeux
      * @return void
-     */
-    public static function GetGamesByLimit($offset, $next){
-        $sql = "SELECT * FROM jeux LIMIT ?, ?";
+     */     
+    public static function GetGamesByLimit($offset, $next, $idGames){
+        $sql = "SELECT * FROM jeux WHERE id IN ($idGames) ORDER BY FIELD(id, $idGames) LIMIT ?, ?";
 
         $param = [$offset, $next];
         return ConnexionDB::DbRun($sql, $param)->fetchAll(PDO::FETCH_OBJ);

@@ -6,7 +6,7 @@ use ShareGames\Models\GamesModel;
 
 class ManagementGamesController
 {
-    const LIMIT_GAME_TO_PAGE = 10;
+    const LIMIT_GAME_TO_PAGE = 9;
 
     /**
      * Gestion des jeux
@@ -18,12 +18,16 @@ class ManagementGamesController
         $page = filter_input(INPUT_GET, "page");
 
         $offset = FunctionsController::GetOffset($page, self::LIMIT_GAME_TO_PAGE);
-                
-        $games = GamesModel::GetGamesByLimit($offset, self::LIMIT_GAME_TO_PAGE);
 
-        $allGames = ManagementGamesController::DisplayGames($games);
-        $displayPagination = FunctionsController::DisplayPagination(GamesModel::GetAllGames(), self::LIMIT_GAME_TO_PAGE);
+        $allGames = GamesModel::GetAllGames();
         
+        $conditionIn = FunctionsController::GetStrIdsGames($allGames);
+
+        $games = GamesModel::GetGamesByLimit($offset, self::LIMIT_GAME_TO_PAGE, $conditionIn);
+
+        $displayGames = FunctionsController::DisplayGames($games, true);
+        $displayPagination = FunctionsController::DisplayPagination($allGames, self::LIMIT_GAME_TO_PAGE, "gestionJeux");
+
 
 
         require "../src/Views/managementGamesView.php";
@@ -33,7 +37,7 @@ class ManagementGamesController
      *
      * @return string $output L'affichage des jeux
      */
-    public function DisplayGames($games)
+    /*public function DisplayGames($games)
     {
         $output = "";
 
@@ -50,9 +54,5 @@ class ManagementGamesController
             </div>";
         }
         return $output;
-    }
-
-   
-
-   
+    }*/
 }

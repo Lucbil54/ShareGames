@@ -10528,3 +10528,9 @@ textarea {
 input:required {
   border: 2px solid orangered;
 }
+
+.paginationCenter{
+  width: 30%;
+  margin-left: 35%;
+  margin-bottom: 2%;
+}

@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="assets/fonts/icomoon/style.css">
     <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    
+
     <link rel="stylesheet" href="assets/css/form.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <title>Inscription</title>
 </head>
@@ -31,22 +31,23 @@
     <form method="post" enctype="multipart/form-data">
 
         <label for="name">Nom: *</label>
-		<input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
+        <input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
 
-		<label for="password">Mot de passe: *</label>
-		<input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
+        <label for="password">Mot de passe: *</label>
+        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
 
         <label for="password">Confirmation du mot de passe: *</label>
-		<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" minlength="8" required>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmez votre mot de passe" minlength="8" required>
 
         <label for="avatar">Sélectionnez un avatar (optionnel) :</label>
-		<input type="file" name="avatar" accept="image/*">
+        <input type="file" name="avatar" accept="image/*">
 
-		<input type="submit" value="S'inscrire" name="register">
-        <p class="small mb-5 pb-lg-2" style="color: red;"><?php echo $message; ?></p>
-
+        <input type="submit" value="S'inscrire" name="register">
+        <div style="margin-top: 1%;">
+            <p class="small mb-3 pb-lg-1" style="color: red; text-align:center;"><?php echo $message; ?></p>
+        </div>
         <div>
-            <p class="mb-0">Vous avez déjà un compte ? <a href="/connexion">Connexion</a></p>
+            <p class="mb-0" style="text-align:center;">Vous avez déjà un compte ? <a href="/connexion">Connexion</a></p>
         </div>
     </form>
     <?php include "inc/footer.php"; ?>

@@ -20,41 +20,32 @@
     <link rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Gestion</title>
+    <title>Gestion des jeux</title>
 </head>
 
 <body>
     <?php include "inc/header.php"; ?>
 
-    <h1 class="heading text-black mb-3" style="text-align: center; margin-top: 2%;" data-aos="fade-up">Gestion des jeux</h1>
-    <br>
-    <a href="/creationJeu" class='btn btn-sm btn-outline-primary' style="margin-right: 45%; margin-left: 45%; width: 10%;">Créer une fiche de jeu</a>
-    <div class="section search-result-wrap">
+    <section class="section">
+        <h1 class="heading text-black mb-3" style="text-align: center; margin-top: 2%;" data-aos="fade-up">Gestion des jeux</h1>
+        <br>
+
+        <div class="container" style="margin-bottom: 3%;">
+            <a href="/creationJeu" class='btn btn-outline-primary'>Créer une fiche de jeu</a>
+        </div>
         <div class="container">
-            <div class="row posts-entry">
-                <div class="col-lg-8">
-                    
-                    <?php echo $allGames; ?>
-
-                    <div class="row text-start pt-5 border-top">
-                        <div class="col-md-12">
-                            <div class="custom-pagination">
-                                <?=$displayPagination?>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4 sidebar">
-
-                </div>
+            <div class="row">
+                <?php echo $displayGames; ?>
             </div>
         </div>
-    </div>
+    </section>
+
+    <?= $displayPagination ?>
+
     <?php include "inc/footer.php"; ?>
 </body>
 
