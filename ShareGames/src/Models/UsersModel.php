@@ -132,7 +132,6 @@ class UsersModel
      */
     public static function GeneratePassword($length = self::CHAR_PWD_DEFAULT)
     {
-
         $characters = array_merge(range('a', 'z'), range('A', 'Z'), range(0, 9));
         $password = "";
 

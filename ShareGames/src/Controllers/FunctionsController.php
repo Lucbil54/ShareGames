@@ -57,6 +57,7 @@ class FunctionsController
      *
      * @param int $page Le numéro de la page
      * @param int $limitGameToPage La limite de jeux par page
+     * @param string $pageName Le nom de la page
      * 
      * @return string $output L'affichage de la pagination
      */
@@ -96,10 +97,11 @@ class FunctionsController
      * Affichage des jeux sur la page de jeux et de la page de gestion
      * 
      * @param object $games Les jeux à afficher
+     * @param bool $pageManagement Page management = true / Page jeux = false;
      * 
      * @return string $ouptut affichage
      */
-    public static function DisplayGames($games, $page){
+    public static function DisplayGames($games, $pageManagement){
         $output = "";
 
         foreach ($games as $game) {
@@ -142,7 +144,7 @@ class FunctionsController
                 $output .= "<span>Non noté</span>";
             }
             $output .= "</div></div><p>$game->description</p>";
-            if ($page == self::PAGE_DISPLAY_MANAGEMENT) {
+            if ($pageManagement == self::PAGE_DISPLAY_MANAGEMENT) {
                 $output .= "<div style='display:block;'><p><a href='modifierJeu?idGame=$game->id' class='btn btn-sm btn-outline-primary cardGame'>Modifier</a>";
                 $output .= "<a href='supprimerJeu?idGame=$game->id' class='btn btn-outline-danger cardGame'>Supprimer</a></p></div>";
             }

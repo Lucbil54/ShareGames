@@ -50,13 +50,10 @@
 </body>
 <script>
     function ForgotPassword() {
-
-        var name = document.getElementById("name").value;
         var form = document.getElementById('form');
         var formData = new FormData(form);
 
         var xhr = new XMLHttpRequest();
-
         xhr.open('POST', '/mdpOublier');
         xhr.send(formData);
 

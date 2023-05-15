@@ -74,18 +74,18 @@ class UpdateController
             $checkbox = FunctionsController::GenerateCheckbox();
 
             if (filter_input(INPUT_POST, 'btnUpdateGame')) {
-                $file = $_FILES['file'];
-                if ($file['name'] != "") {
-                    // Suppression de l'ancienne image dans le dossier
-                    unlink("assets/images/" . $fileName);
-
-                    $fileName = $file['name'];
-                    $file_tmp = $file['tmp_name'];
-
-                    $fileName = GamesModel::NameFileRandom($fileName);
-                    move_uploaded_file($file_tmp, "assets/images/" . $fileName);
-                }
                 if (isset($_POST['types'])) {
+                    $file = $_FILES['file'];
+                    if ($file['name'] != "") {
+                        // Suppression de l'ancienne image dans le dossier
+                        unlink("assets/images/" . $fileName);
+
+                        $fileName = $file['name'];
+                        $file_tmp = $file['tmp_name'];
+
+                        $fileName = GamesModel::NameFileRandom($fileName);
+                        move_uploaded_file($file_tmp, "assets/images/" . $fileName);
+                    }
 
                     // Récuperation des champs du formulaire
                     $title = filter_input(INPUT_POST, 'title');
@@ -155,10 +155,10 @@ class UpdateController
 
             $avatar = $_FILES['file'];
             $old_pwd = filter_input(INPUT_POST, "oldPwd");
+            $old_avatar = $user->avatar;
 
             if ($old_pwd != "") {
                 if (password_verify($old_pwd, $user->password)) {
-
                     $new_pwd = filter_input(INPUT_POST, "newPwd");
                     $new_pwd_confirm = filter_input(INPUT_POST, "newPwdConfirm");
 
@@ -172,11 +172,10 @@ class UpdateController
                 }
             }
 
-            $old_avatar = $user->avatar;
-
             if ($avatar['name'] != "") {
-
-                unlink("assets/images/" . $old_avatar);
+                if ($old_avatar != null) {
+                    unlink("assets/images/" . $old_avatar);
+                }
 
                 $new_avatar = $avatar['name'];
                 $file_tmp = $avatar['tmp_name'];
@@ -187,13 +186,14 @@ class UpdateController
                 UsersModel::ChangeAvatar($new_avatar, $idUser);
             } else if (!$keepAvatar) {
 
-                unlink("assets/images/" . $old_avatar);
+                if ($old_avatar != null) {
+                    unlink("assets/images/" . $old_avatar);
+                }
 
                 $new_avatar = null;
 
                 UsersModel::ChangeAvatar($new_avatar, $idUser);
             }
-
 
             if ($message == "") {
                 header("Location: profil");
